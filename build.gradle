@@ -1,0 +1,40 @@
+plugins {
+    id "idea"
+    id "org.jetbrains.kotlin.jvm" version "1.6.10"
+}
+
+ext {
+    kotlinVersion = "1.6.10"
+    assertjVersion = "3.20.0"
+    junitVersion = "5.8.1"
+}
+
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
+
+idea {
+    module {
+        downloadJavadoc = true
+        downloadSources = true
+    }
+}
+
+[compileKotlin, compileTestKotlin]*.kotlinOptions*.jvmTarget = "11"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
+
+    testImplementation "org.assertj:assertj-core:$assertjVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:$junitVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+}
+
+test {
+    useJUnitPlatform()
+}
